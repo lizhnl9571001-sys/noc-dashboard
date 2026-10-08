@@ -42,3 +42,15 @@ SVG 保留 Figma 原始颜色和描边；使用 img 引用时不继承 CSS 颜�
 
 变量 JSON 与 CSS 应同步修改；figma-source.json 保留导出快照，避免误认为最新 Figma 状态。
 
+## 研发如何使用这套资源
+1. 将本仓库全部文件下载到本地
+2. 复制 tokens、styles、icons 这3个文件夹，粘贴进前端项目
+3. 在项目入口引入样式文件：`import './styles/variables.css'`
+4. 读取 tokens/design‑tokens.json 获取颜色、字号、间距变量
+5. icons文件夹内的SVG图标，直接导入页面使用
+
+### 更新规则
+- Figma设计改动后，会更新本仓库main分支文件
+- 项目同步拿最新文件即可
+
+
