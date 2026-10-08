@@ -1,0 +1,22 @@
+[
+  {
+    "file": "topology-node-rect.svg",
+    "sourceNodes": [
+      "6:111",
+      "6:112",
+      "6:113",
+      "6:114",
+      "6:115"
+    ],
+    "note": "从城域拓扑节点导出；按相同 SVG 内容去重。"
+  },
+  {
+    "file": "topology-node-circle.svg",
+    "sourceNodes": [
+      "6:116",
+      "6:117",
+      "6:118"
+    ],
+    "note": "从城域拓扑节点导出；按相同 SVG 内容去重。"
+  }
+]
