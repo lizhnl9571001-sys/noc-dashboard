@@ -1,0 +1,4 @@
+interface:
+  display_name: "网络运营大屏 React"
+  short_description: "复用科技蓝组件与业务字段规范构建React运维大屏并检查交互"
+  default_prompt: "使用 $noc-react-dashboard 基于现有组件实现运维大屏。"

@@ -1,0 +1,1 @@
+import {describe,it,expect} from 'vitest';import {formatMetric,clampPercent} from '../src/format';describe('指标语义',()=>{it('缺失不能显示为0',()=>{expect(formatMetric(null)).toBe('—');expect(formatMetric(0)).toBe('0');expect(formatMetric(NaN)).toBe('—')});it('范围约束',()=>{expect(clampPercent(120)).toBe(100);expect(clampPercent(-1)).toBe(0)})});

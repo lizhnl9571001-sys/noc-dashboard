@@ -1,56 +1,57 @@
-# NOC 大屏设计资源
+# 网络运营大屏 React + TypeScript
 
-来源：[Figma 大屏](https://www.figma.com/design/D8cf68XwZMH4BYNXh7LACM/)；导出日期：2026-10-08。
+这是基于 1005-1.html 和 Figma 规范整理的第一版复用项目，采用 React 19、TypeScript 5.7、Vite 6。无真实接口；数据为固定示例。全国地图尚未移植，使用明确标注的城市入口与城域拓扑示例。原始 HTML 完整保留。
 
-## 内容
+## 启动
 
-- `tokens/design-tokens.json`：49 个变量与 7 个文字样式，使用 $type / $value 格式，保留颜色别名。
-- `tokens/figma-source.json`：原始变量、集合、模式、字体与来源 ID，供核对。
-- `styles/variables.css`：可直接引入的 CSS 变量，统一使用 --noc- 前缀。
-- `icons/`：拓扑矩形、圆形两个 SVG；8 个来源节点按内容去重。文件没有独立图标库，这些是拓扑节点基础图形，并非完整业务图标集。
+Node.js 20.19+ 或 22.12+，npm。执行：
 
-## React + TypeScript 使用
+```sh
+npm install
+npm run dev
+npm run typecheck
+npm test
+npm run build
+```
 
-将 styles、tokens、icons 放入项目 src/design-system 目录。
+浏览器打开终端输出的地址。原稿文件在 references/1005-1.html；Vite 开发时原稿链接可直接访问。
+
+## 复用
+
+从 src/components 导入 KpiCard、Panel、StatusBadge、LayerTabs、AlarmList、DetailCard、ProgressRow、Gauge、TrendChart、Topology、EventTicker、Screen。从 src/types.ts 引用数据类型，样式导入 src/styles/tokens.css 与 dashboard.css。
 
 ```tsx
-import './design-system/styles/variables.css';
+<KpiCard label="在线设备" value={18620} unit="台" status="normal" />
 ```
 
-```css
-.dashboard {
-  background: var(--noc-color-bg);
-  color: var(--noc-color-text);
-  gap: var(--noc-space-16);
-  border-radius: var(--noc-radius-4);
-}
-.panel-title {
-  font-family: var(--noc-type-panel-title-family), sans-serif;
-  font-size: var(--noc-type-panel-title-size);
-  font-weight: var(--noc-type-panel-title-weight);
-  line-height: var(--noc-type-panel-title-line-height);
-}
+这是源码组件库，不是已发布npm包。组件为受控数据传入；请求和刷新由业务层负责。后续如果公司用已有脚手架，只复制组件、类型与样式，不必使用Vite。
+
+## 设计与 Skill
+
+规范：https://www.figma.com/design/D8cf68XwZMH4BYNXh7LACM?node-id=4-2
+
+skills/noc-react-dashboard/SKILL.md 是研发AI助手的工作规则。支持项目 Skill 的工具可按其文档复制到项目技能目录；不支持的工具可明确要求读取此文件。文件存在不等于所有AI工具自动识别。
+
+## GitHub 上传
+
+1. 创建公司组织的 Private 仓库 noc-dashboard。
+2. 解压本包，用网页 Upload files 上传文件夹里的内容（不是仅上传zip）。保留 .gitignore。
+3. Settings / Collaborators 或组织团队权限中授予研发写入权限。
+4. 每次改动新建分支，提交 Pull Request，检查通过后合并 main。
+5. 已附 package-lock.json，首次使用建议 npm ci 安装锁定版本。
+
+终端上传：
+
+```sh
+git init -b main
+git add .
+git commit -m "Initial React dashboard and design skill"
+git remote add origin <替换为你的仓库地址>
+git push -u origin main
 ```
 
-SVG 保留 Figma 原始颜色和描边；使用 img 引用时不继承 CSS 颜色。字体文件未包含，请由项目加载 Noto Sans SC 与 Rajdhani；否则会使用回退字体。这里只导出设计资源，不包含组件或图表运行代码。
+不要提交 node_modules、dist、接口密钥或真实敏感数据。设计师维护规范与验收，研发维护组件与数据接入。
 
-## 上传 GitHub
+## 验证记录
 
-1. 解压 ZIP，进入 noc-design-assets 文件夹。
-2. 在 GitHub 仓库中选择 Add file → Upload files。
-3. 上传本目录下的 tokens、styles、icons 文件夹和 README.md，提交更改。
-
-变量 JSON 与 CSS 应同步修改；figma-source.json 保留导出快照，避免误认为最新 Figma 状态。
-
-## 研发如何使用这套资源
-1. 将本仓库全部文件下载到本地
-2. 复制 tokens、styles、icons 这3个文件夹，粘贴进前端项目
-3. 在项目入口引入样式文件：`import './styles/variables.css'`
-4. 读取 tokens/design‑tokens.json 获取颜色、字号、间距变量
-5. icons文件夹内的SVG图标，直接导入页面使用
-
-### 更新规则
-- Figma设计改动后，会更新本仓库main分支文件
-- 项目同步拿最新文件即可
-
-
+TypeScript检查、Vite生产构建、组件服务端渲染与数据语义测试通过。开发服务器已启动验证。当前环境没有Chromium可执行文件，未完成浏览器截图和点击流程验证；交付后请研发在浏览器检查交互与增强字号。
